@@ -259,9 +259,9 @@
         <input id="power" type="number" value="60">
       </label>
 
-      <button onclick="runSimulation()">
-        RUN THERMAL MISSION →
-      </button>
+    <button id="runMission" type="button">
+  RUN THERMAL MISSION →
+</button>
 
     </div>
 
@@ -416,9 +416,11 @@ function runSimulation() {
 
   }
 
-}
-
 runSimulation();
+
+document.getElementById("runMission").addEventListener("click", runSimulation);
+
+</script>
 <script>
 function runSimulation() {
 
