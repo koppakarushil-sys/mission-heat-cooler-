@@ -1,0 +1,194 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #061018;
+  color: white;
+  min-height: 100vh;
+}
+
+header {
+  padding: 25px 8%;
+  border-bottom: 1px solid #203040;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  color: #55e5ff;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.status {
+  color: #aaff66;
+  font-size: 12px;
+}
+
+main {
+  width: 85%;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.hero {
+  padding: 80px 0;
+  text-align: center;
+}
+
+.tag {
+  color: #55e5ff;
+  letter-spacing: 3px;
+  font-size: 12px;
+}
+
+h1 {
+  font-size: clamp(45px, 8vw, 85px);
+  margin: 20px 0;
+}
+
+h1 span {
+  color: #55e5ff;
+}
+
+.hero p {
+  max-width: 650px;
+  margin: auto;
+  color: #9db0c0;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.card {
+  background: #0b1722;
+  border: 1px solid #203040;
+  border-radius: 18px;
+  padding: 30px;
+}
+
+h2 {
+  margin-bottom: 25px;
+}
+
+label {
+  display: block;
+  color: #9db0c0;
+  margin-top: 16px;
+  font-size: 13px;
+}
+
+input {
+  width: 100%;
+  margin-top: 7px;
+  padding: 13px;
+  background: #061018;
+  border: 1px solid #304455;
+  border-radius: 8px;
+  color: white;
+  font-size: 15px;
+}
+
+button {
+  width: 100%;
+  margin-top: 25px;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  background: #55e5ff;
+  color: #061018;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #8aeeff;
+}
+
+.result {
+  display: flex;
+  justify-content: space-between;
+  padding: 17px 0;
+  border-bottom: 1px solid #203040;
+}
+
+.result span {
+  color: #9db0c0;
+}
+
+.result strong {
+  color: #55e5ff;
+}
+
+.message {
+  margin-top: 25px;
+  padding: 15px;
+  border-left: 3px solid #55e5ff;
+  background: #55e5ff10;
+  color: #b8cbd8;
+  line-height: 1.5;
+}
+
+.architecture {
+  margin: 25px 0 60px;
+  text-align: center;
+}
+
+.flow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 25px;
+}
+
+.flow div {
+  padding: 18px;
+  background: #101f2d;
+  border: 1px solid #294052;
+  border-radius: 12px;
+  min-width: 120px;
+}
+
+.flow b {
+  display: block;
+  font-size: 25px;
+  margin-bottom: 7px;
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  color: #60798a;
+  border-top: 1px solid #203040;
+  font-size: 12px;
+}
+
+@media (max-width: 750px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  header {
+    padding: 20px;
+  }
+
+  main {
+    width: 92%;
+  }
+
+  .hero {
+    padding: 55px 0;
+  }
+}
