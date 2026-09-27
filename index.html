@@ -117,6 +117,11 @@
       color: #061018;
       font-weight: bold;
       cursor: pointer;
+      font-size: 15px;
+    }
+
+    button:hover {
+      opacity: 0.85;
     }
 
     .result {
@@ -226,7 +231,6 @@
   <section class="dashboard">
 
     <div class="card">
-
       <h2>Mission Inputs</h2>
 
       <label>
@@ -259,14 +263,12 @@
         <input id="power" type="number" value="60">
       </label>
 
-    <button id="runMission" type="button">
-  RUN THERMAL MISSION →
-</button>
-
+      <button id="runMission" type="button">
+        RUN THERMAL MISSION →
+      </button>
     </div>
 
     <div class="card">
-
       <h2>Live Mission Report</h2>
 
       <div class="result">
@@ -297,7 +299,6 @@
       <div class="message" id="message">
         Enter your conditions and run the thermal mission.
       </div>
-
     </div>
 
   </section>
@@ -352,74 +353,86 @@
 </footer>
 
 <script>
+  function runSimulation() {
 
-function runSimulation() {
+    const temperature =
+      Number(document.getElementById("temperature").value);
 
-  const temperature =
-    Number(document.getElementById("temperature").value);
+    const hours =
+      Number(document.getElementById("hours").value);
 
-  const hours =
-    Number(document.getElementById("hours").value);
+    const solar =
+      Number(document.getElementById("solar").value);
 
-  const solar =
-    Number(document.getElementById("solar").value);
+    const battery =
+      Number(document.getElementById("battery").value);
 
-  const battery =
-    Number(document.getElementById("battery").value);
+    const modules =
+      Number(document.getElementById("modules").value);
 
-  const modules =
-    Number(document.getElementById("modules").value);
+    const power =
+      Number(document.getElementById("power").value);
 
-  const power =
-    Number(document.getElementById("power").value);
+    if (
+      !Number.isFinite(temperature) ||
+      !Number.isFinite(hours) ||
+      !Number.isFinite(solar) ||
+      !Number.isFinite(battery) ||
+      !Number.isFinite(modules) ||
+      !Number.isFinite(power) ||
+      hours <= 0 ||
+      solar < 0 ||
+      battery < 0 ||
+      modules <= 0 ||
+      power <= 0
+    ) {
+      document.getElementById("message").textContent =
+        "Please enter valid positive values for the mission inputs.";
 
-  const solarEnergy = solar * hours;
+      return;
+    }
 
-  const peltierDemand = modules * power;
+    const solarEnergy = solar * hours;
+    const peltierDemand = modules * power;
+    const availableEnergy = battery + solarEnergy;
+    const runtime = availableEnergy / peltierDemand;
 
-  const availableEnergy = battery + solarEnergy;
+    let risk = "LOW";
 
-  const runtime = availableEnergy / peltierDemand;
+    if (temperature >= 42) {
+      risk = "HIGH";
+    } else if (temperature >= 35) {
+      risk = "MEDIUM";
+    }
 
-  let risk = "LOW";
+    document.getElementById("generated").textContent =
+      Math.round(solarEnergy) + " Wh";
 
-  if (temperature >= 42) {
-    risk = "HIGH";
-  } else if (temperature >= 35) {
-    risk = "MEDIUM";
+    document.getElementById("available").textContent =
+      Math.round(availableEnergy) + " Wh";
+
+    document.getElementById("demand").textContent =
+      Math.round(peltierDemand) + " W";
+
+    document.getElementById("runtime").textContent =
+      runtime.toFixed(1) + " hours";
+
+    document.getElementById("risk").textContent =
+      risk;
+
+    if (runtime >= hours) {
+      document.getElementById("message").textContent =
+        "Mission status: the modeled energy budget can support the selected parking period.";
+    } else {
+      document.getElementById("message").textContent =
+        "Mission status: the modeled energy budget is below the selected parking period. Consider increasing solar or battery capacity.";
+    }
   }
 
-  document.getElementById("generated").textContent =
-    Math.round(solarEnergy) + " Wh";
-
-  document.getElementById("available").textContent =
-    Math.round(availableEnergy) + " Wh";
-
-  document.getElementById("demand").textContent =
-    Math.round(peltierDemand) + " W";
-
-  document.getElementById("runtime").textContent =
-    runtime.toFixed(1) + " hours";
-
-  document.getElementById("risk").textContent =
-    risk;
-
-  if (runtime >= hours) {
-
-    document.getElementById("message").textContent =
-      "Mission status: the modeled energy budget can support the selected parking period.";
-
-  } else {
-
-    document.getElementById("message").textContent =
-      "Mission status: the modeled energy budget is below the selected parking period. Consider increasing solar or battery capacity.";
-
-  }
-
-runSimulation();
-
-document.getElementById("runMission").addEventListener("click", runSimulation);
-
+  document
+    .getElementById("runMission")
+    .addEventListener("click", runSimulation);
 </script>
+
 </body>
 </html>
