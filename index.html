@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mission Heat Cooler</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #061018;
+      color: white;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 25px 8%;
+      border-bottom: 1px solid #203040;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      color: #55e5ff;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .status {
+      color: #aaff66;
+      font-size: 12px;
+    }
+
+    main {
+      width: 85%;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .hero {
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .tag {
+      color: #55e5ff;
+      letter-spacing: 3px;
+      font-size: 12px;
+    }
+
+    h1 {
+      font-size: clamp(45px, 8vw, 85px);
+      margin: 20px 0;
+    }
+
+    h1 span {
+      color: #55e5ff;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: auto;
+      color: #9db0c0;
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+
+    .card {
+      background: #0b1722;
+      border: 1px solid #203040;
+      border-radius: 18px;
+      padding: 30px;
+    }
+
+    h2 {
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      color: #9db0c0;
+      margin-top: 16px;
+      font-size: 13px;
+    }
+
+    input {
+      width: 100%;
+      margin-top: 7px;
+      padding: 13px;
+      background: #061018;
+      border: 1px solid #304455;
+      border-radius: 8px;
+      color: white;
+      font-size: 15px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 25px;
+      padding: 15px;
+      border: none;
+      border-radius: 8px;
+      background: #55e5ff;
+      color: #061018;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .result {
+      display: flex;
+      justify-content: space-between;
+      padding: 17px 0;
+      border-bottom: 1px solid #203040;
+    }
+
+    .result span {
+      color: #9db0c0;
+    }
+
+    .result strong {
+      color: #55e5ff;
+    }
+
+    .message {
+      margin-top: 25px;
+      padding: 15px;
+      border-left: 3px solid #55e5ff;
+      background: #55e5ff10;
+      color: #b8cbd8;
+      line-height: 1.5;
+    }
+
+    .architecture {
+      margin: 25px 0 60px;
+      text-align: center;
+    }
+
+    .flow {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 25px;
+    }
+
+    .flow div {
+      padding: 18px;
+      background: #101f2d;
+      border: 1px solid #294052;
+      border-radius: 12px;
+      min-width: 120px;
+    }
+
+    .flow b {
+      display: block;
+      font-size: 25px;
+      margin-bottom: 7px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #60798a;
+      border-top: 1px solid #203040;
+      font-size: 12px;
+    }
+
+    @media (max-width: 750px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        padding: 20px;
+      }
+
+      main {
+        width: 92%;
+      }
+
+      .hero {
+        padding: 55px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">MISSION HEAT COOLER</div>
+  <div class="status">● SIMULATION MODE</div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="tag">SOLAR + THERMOELECTRIC TECHNOLOGY</div>
+
+    <h1>
+      Cool the cabin<br>
+      <span>before you arrive.</span>
+    </h1>
+
+    <p>
+      Mission Heat Cooler is a hackathon prototype exploring a
+      solar-powered Peltier cooling system designed to operate
+      while a vehicle is parked under sunlight.
+    </p>
+  </section>
+
+  <section class="dashboard">
+
+    <div class="card">
+
+      <h2>Mission Inputs</h2>
+
+      <label>
+        Outside Temperature (°C)
+        <input id="temperature" type="number" value="40">
+      </label>
+
+      <label>
+        Parking Duration (hours)
+        <input id="hours" type="number" value="3">
+      </label>
+
+      <label>
+        Solar Panel Power (W)
+        <input id="solar" type="number" value="180">
+      </label>
+
+      <label>
+        Battery Capacity (Wh)
+        <input id="battery" type="number" value="500">
+      </label>
+
+      <label>
+        Peltier Modules
+        <input id="modules" type="number" value="2">
+      </label>
+
+      <label>
+        Power per Peltier Module (W)
+        <input id="power" type="number" value="60">
+      </label>
+
+      <button onclick="runSimulation()">
+        RUN THERMAL MISSION →
+      </button>
+
+    </div>
+
+    <div class="card">
+
+      <h2>Live Mission Report</h2>
+
+      <div class="result">
+        <span>Solar Energy Generated</span>
+        <strong id="generated">—</strong>
+      </div>
+
+      <div class="result">
+        <span>Energy Available</span>
+        <strong id="available">—</strong>
+      </div>
+
+      <div class="result">
+        <span>Peltier Power Demand</span>
+        <strong id="demand">—</strong>
+      </div>
+
+      <div class="result">
+        <span>Estimated Runtime</span>
+        <strong id="runtime">—</strong>
+      </div>
+
+      <div class="result">
+        <span>Heat Risk</span>
+        <strong id="risk">—</strong>
+      </div>
+
+      <div class="message" id="message">
+        Enter your conditions and run the thermal mission.
+      </div>
+
+    </div>
+
+  </section>
+
+  <section class="card architecture">
+
+    <h2>System Architecture</h2>
+
+    <div class="flow">
+
+      <div>
+        <b>☀️</b>
+        Solar Panel
+      </div>
+
+      <strong>→</strong>
+
+      <div>
+        <b>🔋</b>
+        Battery
+      </div>
+
+      <strong>→</strong>
+
+      <div>
+        <b>⚡</b>
+        Controller
+      </div>
+
+      <strong>→</strong>
+
+      <div>
+        <b>❄️</b>
+        Peltier
+      </div>
+
+      <strong>→</strong>
+
+      <div>
+        <b>🚗</b>
+        Cabin
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  Mission Heat Cooler • Educational Hackathon Prototype • 2026
+</footer>
+
+<script>
+
+function runSimulation() {
+
+  const temperature =
+    Number(document.getElementById("temperature").value);
+
+  const hours =
+    Number(document.getElementById("hours").value);
+
+  const solar =
+    Number(document.getElementById("solar").value);
+
+  const battery =
+    Number(document.getElementById("battery").value);
+
+  const modules =
+    Number(document.getElementById("modules").value);
+
+  const power =
+    Number(document.getElementById("power").value);
+
+  const solarEnergy = solar * hours;
+
+  const peltierDemand = modules * power;
+
+  const availableEnergy = battery + solarEnergy;
+
+  const runtime = availableEnergy / peltierDemand;
+
+  let risk = "LOW";
+
+  if (temperature >= 42) {
+    risk = "HIGH";
+  } else if (temperature >= 35) {
+    risk = "MEDIUM";
+  }
+
+  document.getElementById("generated").textContent =
+    Math.round(solarEnergy) + " Wh";
+
+  document.getElementById("available").textContent =
+    Math.round(availableEnergy) + " Wh";
+
+  document.getElementById("demand").textContent =
+    Math.round(peltierDemand) + " W";
+
+  document.getElementById("runtime").textContent =
+    runtime.toFixed(1) + " hours";
+
+  document.getElementById("risk").textContent =
+    risk;
+
+  if (runtime >= hours) {
+
+    document.getElementById("message").textContent =
+      "Mission status: the modeled energy budget can support the selected parking period.";
+
+  } else {
+
+    document.getElementById("message").textContent =
+      "Mission status: the modeled energy budget is below the selected parking period. Consider increasing solar or battery capacity.";
+
+  }
+
+}
+
+runSimulation();
+
+</script>
+
+</body>
+</html>
